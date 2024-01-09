@@ -3,12 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jabs Hub</title>
+  <title>Jabs Hub mit Timer</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <center>
-    <h1>Jabs Hub</h1>
-    <p>Erste Online Tests</p>
-  </center>
+  <div id="timer-container">
+    <h1>Mein Jabs Hub</h1>
+    <p id="timer">00:00:00</p>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="stopTimer()">Stop</button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
