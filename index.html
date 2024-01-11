@@ -20,6 +20,21 @@
       margin-top: 20px;
       text-align: left;
     }
+
+    #adBanner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+    }
+
+    #adBanner img {
+      max-width: 100%;
+      height: auto;
+    }
   </style>
 </head>
 <body>
@@ -35,6 +50,11 @@
 <div id="comments">
   <h3>Kommentare:</h3>
   <ul id="commentList"></ul>
+</div>
+
+<!-- Platzhalter Ad Banner -->
+<div id="adBanner">
+  <img src="placeholder_ad_banner.png" alt="Ad Banner">
 </div>
 
 <script>
@@ -64,7 +84,14 @@
   displayComments(); // Lade vorhandene Kommentare beim Seitenaufruf
 </script>
 
-  <meta name="google-adsense-account" content="ca-pub-1501465906089828">
+<!-- Google AdSense-Code-Snippet -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-1501465906089828",
+    enable_page_level_ads: true
+  });
+</script>
 
 </body>
 </html>
