@@ -37,20 +37,41 @@
   <ul id="commentList"></ul>
 </div>
 
+<!-- Firebase SDK einbinden -->
+<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-database.js"></script>
+
 <script>
-  function saveComment() {
+  // Firebase-Konfiguration (ersetze mit deinen Werten)
+  const firebaseConfig = {
+    apiKey: "AIzaSyARMq0FTwgqOqB8mOnsZ3EhJpIMEQp1EZw",
+    authDomain: "chat-bbf1b.firebaseapp.com",
+    projectId: "chat-bbf1b",
+    storageBucket: "chat-bbf1b.appspot.com",
+    messagingSenderId: "379882148998",
+    appId: "1:379882148998:web:01ac0d35be9b2e1a2d6d07"
+  };
+
+  // Initialisiere Firebase
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+
+  async function saveComment() {
     const commentText = document.getElementById('comment').value;
-    
+
     if (commentText.trim() !== "") {
-      const commentList = JSON.parse(localStorage.getItem('comments')) || [];
-      commentList.push(commentText);
-      localStorage.setItem('comments', JSON.stringify(commentList));
+      await database.ref('comments').push({ comment: commentText });
       displayComments();
     }
   }
 
-  function displayComments() {
-    const commentList = JSON.parse(localStorage.getItem('comments')) || [];
+  async function displayComments() {
+    const commentsRef = await database.ref('comments').once('value');
+    const commentList = [];
+    commentsRef.forEach(comment => {
+      commentList.push(comment.val().comment);
+    });
+
     const commentListElement = document.getElementById('commentList');
     commentListElement.innerHTML = '';
 
