@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jabs Hub</title>
+  <title>Gästebuch</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -11,17 +11,58 @@
       margin: 50px;
     }
 
-    h1 {
-      font-size: 2em;
+    #guestbook {
+      width: 80%;
+      margin: 0 auto;
     }
 
-    p {
-      font-size: 1.2em;
+    #comments {
+      margin-top: 20px;
+      text-align: left;
     }
   </style>
 </head>
 <body>
-  <h1>Jabs Hub</h1>
-  <p>Willkommen beim Jabs Hub! Hier findest du Informationen, Texte oder was auch immer du hinzufügen möchtest.</p>
+
+<h2>Gästebuch</h2>
+
+<form id="guestbookForm">
+  <label for="comment">Schreibe hier deinen Kommentar:</label><br>
+  <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br>
+  <button type="button" onclick="saveComment()">Speichern</button>
+</form>
+
+<div id="comments">
+  <h3>Kommentare:</h3>
+  <ul id="commentList"></ul>
+</div>
+
+<script>
+  function saveComment() {
+    const commentText = document.getElementById('comment').value;
+    
+    if (commentText.trim() !== "") {
+      const commentList = JSON.parse(localStorage.getItem('comments')) || [];
+      commentList.push(commentText);
+      localStorage.setItem('comments', JSON.stringify(commentList));
+      displayComments();
+    }
+  }
+
+  function displayComments() {
+    const commentList = JSON.parse(localStorage.getItem('comments')) || [];
+    const commentListElement = document.getElementById('commentList');
+    commentListElement.innerHTML = '';
+
+    commentList.forEach(comment => {
+      const listItem = document.createElement('li');
+      listItem.textContent = comment;
+      commentListElement.appendChild(listItem);
+    });
+  }
+
+  displayComments(); // Lade vorhandene Kommentare beim Seitenaufruf
+</script>
+
 </body>
 </html>
